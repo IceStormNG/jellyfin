@@ -267,6 +267,8 @@ public class ItemsController : BaseJellyfinApiController
             fields = [..fields, ItemFields.Tags];
         }
 
+        fields = [.. fields, ItemFields.Settings];
+
         var dtoOptions = new DtoOptions { Fields = fields }
             .AddClientFields(User)
             .AddAdditionalDtoOptions(enableImages, enableUserData, imageTypeLimit, enableImageTypes);

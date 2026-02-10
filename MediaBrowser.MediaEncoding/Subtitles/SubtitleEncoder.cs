@@ -789,12 +789,20 @@ namespace MediaBrowser.MediaEncoding.Subtitles
 
             Directory.CreateDirectory(Path.GetDirectoryName(outputPath) ?? throw new ArgumentException($"Provided path ({outputPath}) is not valid.", nameof(outputPath)));
 
+            string format = string.Empty;
+
+            if (outputCodec.Equals("subrip", StringComparison.OrdinalIgnoreCase))
+            {
+                format = "-f srt";
+            }
+
             var processArgs = string.Format(
                 CultureInfo.InvariantCulture,
-                "-i {0} -copyts -map 0:{1} -an -vn -c:s {2} \"{3}\"",
+                "-i {0} -copyts -map 0:{1} -an -vn -c:s {2} {3} \"{4}\"",
                 inputPath,
                 subtitleStreamIndex,
                 outputCodec,
+                format,
                 outputPath);
 
             int exitCode;

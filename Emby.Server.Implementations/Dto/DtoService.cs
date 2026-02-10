@@ -260,6 +260,31 @@ namespace Emby.Server.Implementations.Dto
             {
                 dto.MediaSources = _mediaSourceManager.GetStaticMediaSources(item, true, user).ToArray();
 
+                if (item.MediaType == MediaType.Video && dto.MediaSources.Length > 1 && dto.MediaSources[0].Name.Contains(" - ", StringComparison.OrdinalIgnoreCase))
+                {
+                    foreach (var d in dto.MediaSources)
+                    {
+                        var ar = d.Name.Split(" - ");
+
+                        string end = ar[ar.Length - 1];
+                        if (end.EndsWith('p') || end.EndsWith('i') || end.EndsWith("p HDR", StringComparison.OrdinalIgnoreCase) || end.EndsWith("p DV", StringComparison.OrdinalIgnoreCase))
+                        {
+                            d.Name = ar[ar.Length - 1];
+                        }
+                    }
+
+                    dto.MediaSources = dto.MediaSources.OrderBy(i =>
+                     {
+                         if (i.VideoType == VideoType.VideoFile)
+                         {
+                             return 0;
+                         }
+
+                         return 1;
+                     }).ThenBy(i => i.Video3DFormat.HasValue ? 1 : 0)
+                        .ThenByDescending(i => i.Name, StringComparer.Ordinal).ToArray();
+                }
+
                 NormalizeMediaSourceContainers(dto);
             }
 

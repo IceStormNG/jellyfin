@@ -28,6 +28,11 @@ namespace MediaBrowser.Model.MediaInfo
                 return "DTS";
             }
 
+            if (string.Equals(codec, "truehd", StringComparison.OrdinalIgnoreCase))
+            {
+                return "Dolby TrueHD";
+            }
+
             return codec.ToUpperInvariant();
         }
     }

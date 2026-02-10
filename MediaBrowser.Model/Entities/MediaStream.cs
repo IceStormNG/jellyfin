@@ -300,7 +300,18 @@ namespace MediaBrowser.Model.Entities
 
                         if (!string.IsNullOrEmpty(Profile) && !string.Equals(Profile, "lc", StringComparison.OrdinalIgnoreCase))
                         {
-                            attributes.Add(Profile);
+                            if (string.Equals(Profile, "DTS-HD MA", StringComparison.OrdinalIgnoreCase))
+                            {
+                                attributes.Add("DTS-HD Master Audio");
+                            }
+                            else if (string.Equals(Profile, "DTS-HD HRA", StringComparison.OrdinalIgnoreCase))
+                            {
+                            attributes.Add("DTS-HD High Resolution Audio");
+                            }
+                            else
+                            {
+                                attributes.Add(Profile);
+                            }
                         }
                         else if (!string.IsNullOrEmpty(Codec))
                         {
@@ -357,7 +368,16 @@ namespace MediaBrowser.Model.Entities
 
                         if (!string.IsNullOrEmpty(Codec))
                         {
-                            attributes.Add(Codec.ToUpperInvariant());
+                            string codec = Codec.ToUpperInvariant();
+
+                            if (codec.Equals("MPEG2VIDEO", StringComparison.Ordinal))
+                            {
+                                attributes.Add("MPEG-2");
+                            }
+                            else
+                            {
+                                attributes.Add(Codec.ToUpperInvariant());
+                            }
                         }
 
                         if (VideoDoViTitle is not null)
@@ -439,7 +459,24 @@ namespace MediaBrowser.Model.Entities
 
                         if (!string.IsNullOrEmpty(Codec))
                         {
-                            attributes.Add(Codec.ToUpperInvariant());
+                            string codec = Codec.ToUpperInvariant();
+
+                            if (codec.Equals("PGSSUB", StringComparison.Ordinal))
+                            {
+                                attributes.Add("HDMV PGS");
+                            }
+                            else if (codec.Equals("DVDSUB", StringComparison.Ordinal))
+                            {
+                                attributes.Add("VobSub");
+                            }
+                            else if (codec.Equals("SUBRIP", StringComparison.Ordinal))
+                            {
+                                attributes.Add("SubRip");
+                            }
+                            else
+                            {
+                                attributes.Add(Codec.ToUpperInvariant());
+                            }
                         }
 
                         if (IsExternal)

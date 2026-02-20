@@ -1587,9 +1587,12 @@ namespace MediaBrowser.Controller.MediaEncoding
                     mbbrcOpt = " -mbbrc 1";
                 }
 
+                int maxrate = (int)(bitrate * 1.25);
+                int targetBitRate = (int)(bitrate * 0.85);
+
                 // Set (maxrate == bitrate + 1) to trigger VBR for better bitrate allocation
                 // Set (rc_init_occupancy == 2 * bitrate) and (bufsize == 4 * bitrate) to deal with drastic scene changes
-                return FormattableString.Invariant($"{mbbrcOpt} -b:v {bitrate} -maxrate {bitrate + 1} -rc_init_occupancy {bitrate * 2} -bufsize {bitrate * 4}");
+                return FormattableString.Invariant($"{mbbrcOpt} -b:v {targetBitRate} -maxrate {maxrate} -rc_init_occupancy {bitrate * 2} -bufsize {bitrate * 4}");
             }
 
             if (string.Equals(videoCodec, "h264_amf", StringComparison.OrdinalIgnoreCase)

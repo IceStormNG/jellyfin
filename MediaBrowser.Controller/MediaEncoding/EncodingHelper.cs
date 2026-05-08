@@ -1634,7 +1634,7 @@ namespace MediaBrowser.Controller.MediaEncoding
                 int qsvInitOcc = (int)Math.Min((long)bitrate * 1 * factor, int.MaxValue);
                 int qsvBufsize = (int)Math.Min((long)bitrate * 2 * factor, int.MaxValue);
 
-                int qsvMaxrate = (int)(qsvMaxrate * 1.25);
+                qsvMaxrate = (int)(qsvMaxrate * 1.25);
                 int targetBitRate = (int)(bitrate * 0.85);
 
                 return FormattableString.Invariant($"{mbbrcOpt} -b:v {targetBitRate} -maxrate {qsvMaxrate} -rc_init_occupancy {qsvInitOcc} -bufsize {qsvBufsize}");

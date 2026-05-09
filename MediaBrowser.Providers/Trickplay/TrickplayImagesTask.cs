@@ -92,24 +92,24 @@ public class TrickplayImagesTask : IScheduledTask
             query.StartIndex = startIndex;
             var videos = _libraryManager.GetItemList(query).OfType<Video>();
 
-            foreach (var video in videos)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
+            await Parallel.ForEachAsync(
+               videos,
+               new ParallelOptions() { CancellationToken = cancellationToken },
+               async (video, ct) =>
+               {
+                   try
+                   {
+                       var libraryOptions = _libraryManager.GetLibraryOptions(video);
+                       await _trickplayManager.RefreshTrickplayDataAsync(video, false, libraryOptions, ct).ConfigureAwait(false);
+                   }
+                   catch (Exception ex)
+                   {
+                       _logger.LogError(ex, "Error creating trickplay files for {ItemName}", video.Name);
+                   }
 
-                try
-                {
-                    var libraryOptions = _libraryManager.GetLibraryOptions(video);
-                    await _trickplayManager.RefreshTrickplayDataAsync(video, false, libraryOptions, cancellationToken).ConfigureAwait(false);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error creating trickplay files for {ItemName}", video.Name);
-                }
-
-                numComplete++;
-                progress.Report(100d * numComplete / numberOfVideos);
-            }
-
+                   var completed = Interlocked.Increment(ref numComplete);
+                   progress.Report(100d * completed / numberOfVideos);
+               }).ConfigureAwait(false);
             startIndex += QueryPageLimit;
         }
 

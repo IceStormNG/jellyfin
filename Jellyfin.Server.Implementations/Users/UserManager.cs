@@ -220,6 +220,12 @@ namespace Jellyfin.Server.Implementations.Users
         }
 
         /// <inheritdoc/>
+        public async Task RenameUser(User user, string newName)
+        {
+            await RenameUser(user.Id, user.Username, newName).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc/>
         public async Task UpdateUserAsync(User user)
         {
             using (await _userLock.LockAsync(user.Id).ConfigureAwait(false))

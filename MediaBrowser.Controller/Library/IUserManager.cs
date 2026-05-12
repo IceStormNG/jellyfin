@@ -72,6 +72,16 @@ namespace MediaBrowser.Controller.Library
         Task RenameUser(Guid userId, string oldName, string newName);
 
         /// <summary>
+        /// Renames the user.
+        /// </summary>
+        /// <param name="user">The UserId to change.</param>
+        /// <param name="newName">The new name.</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="ArgumentNullException">If user is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">If the provided user doesn't exist.</exception>
+        Task RenameUser(User user, string newName);
+
+        /// <summary>
         /// Updates the user.
         /// </summary>
         /// <param name="user">The user.</param>

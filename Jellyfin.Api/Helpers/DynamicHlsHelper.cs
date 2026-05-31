@@ -242,10 +242,7 @@ public class DynamicHlsHelper
 
                     // HACK: Use the same bitrate so that the client can choose by other attributes, such as color range.
                     // Fix a bug with webos always chosing the wrong option
-                    if (!state.UserAgent?.Contains("webos", StringComparison.OrdinalIgnoreCase) ?? true)
-                    {
-                        AppendPlaylist(builder, state, sdrVideoUrl, totalBitrate, subtitleGroup);
-                    }
+                    // AppendPlaylist(builder, state, sdrVideoUrl, totalBitrate, subtitleGroup);
 
                     // Restore the video codec
                     state.OutputVideoCodec = "copy";

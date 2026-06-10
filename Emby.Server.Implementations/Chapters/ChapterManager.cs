@@ -130,7 +130,7 @@ public class ChapterManager : IChapterManager
         var threshold = TimeSpan.FromSeconds(1).Ticks;
         if (averageChapterDuration < threshold)
         {
-            _logger.LogInformation("Skipping chapter image extraction for {Video} as the average chapter duration {AverageDuration} was lower than the minimum threshold {Threshold}", video.Name, averageChapterDuration, threshold);
+            // _logger.LogInformation("Skipping chapter image extraction for {Video} as the average chapter duration {AverageDuration} was lower than the minimum threshold {Threshold}", video.Name, averageChapterDuration, threshold);
             extractImages = false;
         }
 
@@ -145,7 +145,7 @@ public class ChapterManager : IChapterManager
         {
             if (chapter.StartPositionTicks >= runtimeTicks)
             {
-                _logger.LogInformation("Stopping chapter extraction for {0} because a chapter was found with a position greater than the runtime.", video.Name);
+                // _logger.LogInformation("Stopping chapter extraction for {0} because a chapter was found with a position greater than the runtime.", video.Name);
                 break;
             }
 

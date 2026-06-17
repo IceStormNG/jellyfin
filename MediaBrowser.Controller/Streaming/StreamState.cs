@@ -101,7 +101,7 @@ public class StreamState : EncodingJobInfo, IDisposable
                 if (userAgent.Contains("webOS", StringComparison.OrdinalIgnoreCase)
                     || userAgent.Contains("WebAppManager", StringComparison.OrdinalIgnoreCase))
                 {
-                    return 6;
+                    return 24;
                 }
 
                 return 6;

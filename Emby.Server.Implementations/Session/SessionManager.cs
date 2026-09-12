@@ -450,7 +450,7 @@ namespace Emby.Server.Implementations.Session
             session.PlayState.LiveStreamId = info.LiveStreamId;
             session.PlayState.CanSeek = info.CanSeek;
             session.PlayState.IsMuted = info.IsMuted;
-            session.PlayState.VolumeLevel = info.VolumeLevel;
+            session.PlayState.VolumeLevel = (int?)info.VolumeLevel;
             session.PlayState.AudioStreamIndex = info.AudioStreamIndex;
             session.PlayState.SubtitleStreamIndex = info.SubtitleStreamIndex;
             session.PlayState.PlayMethod = info.PlayMethod;

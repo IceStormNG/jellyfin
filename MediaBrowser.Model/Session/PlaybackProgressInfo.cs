@@ -77,7 +77,7 @@ namespace MediaBrowser.Model.Session
         /// Gets or sets the volume level.
         /// </summary>
         /// <value>The volume level.</value>
-        public int? VolumeLevel { get; set; }
+        public float? VolumeLevel { get; set; }
 
         public int? Brightness { get; set; }
 

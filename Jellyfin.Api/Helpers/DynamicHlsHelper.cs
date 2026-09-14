@@ -260,7 +260,7 @@ public class DynamicHlsHelper
                     var sdrVideoUrl = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(baseUrl, sdrPlaylistQuery);
 
                     // HACK: Use the same bitrate so that the client can choose by other attributes, such as color range.
-                    AppendPlaylist(builder, state, sdrVideoUrl, totalBitrate, subtitleGroup);
+                    // AppendPlaylist(builder, state, sdrVideoUrl, totalBitrate, subtitleGroup);
 
                     // Restore the video codec
                     state.OutputVideoCodec = "copy";
